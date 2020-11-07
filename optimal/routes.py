@@ -1,5 +1,6 @@
 from flask import render_template
 from optimal import app
+from optimal.forms import RegForm, LoginForm
 
 @app.route('/')
 @app.route('/home')
@@ -8,21 +9,21 @@ def home():
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
-    # form = RegForm(request.form)
+    form = RegForm()
     # if request.method == 'POST' and form.validate_on_submit():
     # flash(
     #     f'Account creation success for {form.username.data}!', 'success')
     #     return redirect(url_for('login'))
-    return render_template('register.html', title="Register")
+    return render_template('register.html', title="Register", form=form)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    # form = LoginForm(request.form)
+    form = LoginForm()
     # if request.method == 'POST' and form.validate_on_submit():
     # flash(
     #     f'Account creation success for {form.email.data}!', 'success')
     #     return redirect(url_for('posts'))
-    return render_template('login.html', title="Login")
+    return render_template('login.html', title="Login", form=form)
 
 @app.route('/posts', methods=['GET'])
 def posts():
