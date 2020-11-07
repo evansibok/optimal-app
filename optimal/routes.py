@@ -22,7 +22,7 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        flash(f'Login requested for {form.email.data}, {form.remember_me.data}!', 'success')
+        flash(f'Login successful for {form.email.data}!', 'success')
         return redirect(url_for('posts'))
     return render_template('login.html', title="Login", form=form)
 
