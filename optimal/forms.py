@@ -9,7 +9,7 @@ class RegForm(FlaskForm):
 
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8, message='Password should be at least 8 characters!')])
 
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo(password, message="Passwords don't match")])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message="Passwords don't match")])
 
     submit = SubmitField('Sign Up')
 

@@ -1,29 +1,31 @@
-from flask import render_template
+from flask import render_template, flash, redirect, url_for
 from optimal import app
 from optimal.forms import RegForm, LoginForm
+
 
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template("home.html")
 
-@app.route('/register', methods=['POST', 'GET'])
+
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegForm()
-    # if request.method == 'POST' and form.validate_on_submit():
-    # flash(
-    #     f'Account creation success for {form.username.data}!', 'success')
-    #     return redirect(url_for('login'))
+    if form.validate_on_submit():
+        flash(f'Account creation success for {form.username.data}!', 'success')
+        return redirect(url_for('login'))
     return render_template('register.html', title="Register", form=form)
 
-@app.route('/login', methods=['POST', 'GET'])
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    # if request.method == 'POST' and form.validate_on_submit():
-    # flash(
-    #     f'Account creation success for {form.email.data}!', 'success')
-    #     return redirect(url_for('posts'))
+    if form.validate_on_submit():
+        flash(f'Login requested for {form.email.data}, {form.remember_me.data}!', 'success')
+        return redirect(url_for('posts'))
     return render_template('login.html', title="Login", form=form)
+
 
 @app.route('/posts', methods=['GET'])
 def posts():
