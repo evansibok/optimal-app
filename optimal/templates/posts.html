@@ -3,7 +3,6 @@
   <h4>Welcome {{ user.username }}</h4>
   <p>Find your blog posts below</p>
 
-  {#{% print("posts", posts) %}#}
   {% for post in posts %}
     <h2>{{ post.title }}</h2>
     <p>Posted By: {{ post.author}}</p>
