@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1>Posts</h1>
+  <h4>Welcome {{ user.username }}</h4>
+  <p>Find your blog posts below</p>
 
   {#{% print("posts", posts) %}#}
   {% for post in posts %}

@@ -1,0 +1,2 @@
+FLASK_APP=optimal.py
+FLASK_ENV=development

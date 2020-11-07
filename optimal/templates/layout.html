@@ -38,17 +38,27 @@
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Register</a>
+            <a class="nav-link" href="{{ url_for('register') }}">Register</a>
           </li>
         </ul>
       </div>
     </nav>
   </header>
 
-  <div class="container">
+  <div class="container h-100">
+    {% with messages = get_flashed_messages(with_categories=true)%}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} w-50 mt-3 mr-auto mb-3 ml-auto">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
     {% block content %}{% endblock %}
   </div>
 
