@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, login_required
 from optimal import app, db
 from optimal.forms import RegForm, LoginForm
 from optimal.models import User
@@ -49,6 +49,7 @@ def login():
 
 
 @app.route('/posts', methods=['GET'])
+@login_required
 def posts():
     user = {'username': 'EVANSIBOK'}
     blogPosts = [
