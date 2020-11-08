@@ -1,5 +1,6 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, login_required, logout_user
+from werkzeug.urls import url_parse
 from optimal import app, db
 from optimal.forms import RegForm, LoginForm
 from optimal.models import User
@@ -44,20 +45,22 @@ def login():
             flash('Invalid username or password!', 'danger')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('posts'))
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('posts')
+        return redirect(next_page)
     return render_template('login.html', title="Login", form=form)
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     logout_user()
     flash('Logout successful!', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 
 @app.route('/posts', methods=['GET'])
 @login_required
 def posts():
-    user = {'username': 'EVANSIBOK'}
     blogPosts = [
         {
             'id': 1,
@@ -74,4 +77,4 @@ def posts():
             'date_posted': 'Nov 6, 2020',
         },
     ]
-    return render_template("posts.html", title="Posts", posts=blogPosts, user=user)
+    return render_template("posts.html", title="Posts", posts=blogPosts)
