@@ -1,1 +1,1 @@
-web: gunicorn optimal:optimal
+web: gunicorn optimal-flask:optimal
