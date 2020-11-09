@@ -1,1 +1,1 @@
-web: gunicorn index:optimal
+web: gunicorn optimal:index
